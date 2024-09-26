@@ -7,23 +7,16 @@ public class Main {
         for (char[] chars : battlefield) {
             Arrays.fill(chars, ' ');
         }
-        for(int i=0;i<10;i++){
-            for(int j=0;j<10;j++){
-                System.out.print(battlefield[i][j]+"|");
-            }
-            System.out.println();
-        }
-        System.out.println();
         for(int i=0;i<4;i++){
-            shipsGenerator.arrangeShips4(battlefield,1);
+            shipsGenerator.arrangeShips(battlefield,1);
         }
         for(int i=0;i<3;i++){
-            shipsGenerator.arrangeShips4(battlefield,2);
+            shipsGenerator.arrangeShips(battlefield,2);
         }
         for(int i=0;i<2;i++){
-            shipsGenerator.arrangeShips4(battlefield,3);
+            shipsGenerator.arrangeShips(battlefield,3);
         }
-        shipsGenerator.arrangeShips4(battlefield,4);
+        shipsGenerator.arrangeShips(battlefield,4);
         for(int i=0;i<10;i++){
             for(int j=0;j<10;j++){
                 System.out.print(battlefield[i][j]+"|");

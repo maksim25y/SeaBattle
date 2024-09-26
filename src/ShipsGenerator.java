@@ -3,7 +3,7 @@ import java.util.Random;
 public class ShipsGenerator {
     private final Random random = new Random();
     private final Integer LENGTH = 10;
-    public void arrangeShips4(char[][]battlefield, int lengthOfShip){
+    public void arrangeShips(char[][]battlefield, int lengthOfShip){
         boolean placed = false;
         while(!placed){
             boolean horizontal = random.nextBoolean();
@@ -54,7 +54,7 @@ public class ShipsGenerator {
         for (int i = -1; i <= lengthOfJ; i++) {
             for (int j = -1; j <= length; j++) {
                 if (startX + i >= 0 && startX + i < LENGTH && startY + j >= 0 && startY + j < LENGTH) {
-                    if (battlefield[startX + i][startY + j] != ' ') {
+                    if (battlefield[startX + i][startY + j] == 's') {
                         return false;
                     }
                 }
