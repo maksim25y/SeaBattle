@@ -12,6 +12,7 @@ out/
 .springBeans
 .sts4-cache
 bin/
+SeaBattle.iml
 !**/src/main/**/bin/
 !**/src/test/**/bin/
 

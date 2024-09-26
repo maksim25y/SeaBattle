@@ -1,37 +1,25 @@
-import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     static List<Character>listOfLetters = List.of(
             'A','B','C','D','E','F','G','H','I','J'
     );
     public static void main(String[] args) {
-        ShipsGenerator shipsGenerator = new ShipsGenerator();
-        char[][]battlefield = new char[10][10];
-        for (char[] chars : battlefield) {
-            Arrays.fill(chars, ' ');
-        }
-        for(int i=0;i<4;i++){
-            shipsGenerator.arrangeShips(battlefield,1);
-        }
-        for(int i=0;i<3;i++){
-            shipsGenerator.arrangeShips(battlefield,2);
-        }
-        for(int i=0;i<2;i++){
-            shipsGenerator.arrangeShips(battlefield,3);
-        }
-        shipsGenerator.arrangeShips(battlefield,4);
-        System.out.print(" |");
-        for(Character letter:listOfLetters){
-            System.out.print(letter+"|");
-        }
+        Scanner scanner = new Scanner(System.in);
+        Player player1 = new Player();
+        player1.generateBoard();
         System.out.println();
-        for(int i=0;i<10;i++){
-            System.out.print(i+" ");
-            for(int j=0;j<10;j++){
-                System.out.print(battlefield[i][j]+"|");
-            }
-            System.out.println();
+        Player player2 = new Player();
+        player2.generateBoard();
+        boolean haveWinner = false;
+        while (!haveWinner){
+            System.out.print("Игрок 1 введите координаты: ");
+            String powerOfPlayer1 = scanner.nextLine();
+            //Реализовать атаку и обработку попаданий
+            System.out.print("Игрок 2 введите координаты: ");
+            String powerOfPlayer2 = scanner.nextLine();
+            //Реализовать атаку и обработку попаданий
         }
     }
 }
