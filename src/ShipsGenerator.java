@@ -3,37 +3,37 @@ import java.util.Random;
 public class ShipsGenerator {
     private final Random random = new Random();
     private final Integer LENGTH = 10;
-    public void arrangeShips4(char[][]battlefield){
+    public void arrangeShips4(char[][]battlefield, int lengthOfShip){
         boolean placed = false;
         while(!placed){
             boolean horizontal = random.nextBoolean();
             int startX = random.nextInt(LENGTH);
             int startY = random.nextInt(LENGTH);
             if(horizontal){
-                if(startX+3<LENGTH){
-                    if(isPlacementValid(battlefield,startX,startY,4, true)){
-                        placeHorizontally(battlefield,startX,startY);
+                if(startX+lengthOfShip-1<LENGTH){
+                    if(isPlacementValid(battlefield,startX,startY,lengthOfShip, true)){
+                        placeHorizontally(battlefield,startX,startY,lengthOfShip);
                         placed=true;
                     }
                 }
             }else{
-                if(startY+3<LENGTH) {
-                    if (isPlacementValid(battlefield, startX, startY, 4, false)) {
-                        placeVertically(battlefield,startX,startY);
+                if(startY+lengthOfShip-1<LENGTH) {
+                    if (isPlacementValid(battlefield, startX, startY, lengthOfShip, false)) {
+                        placeVertically(battlefield,startX,startY,lengthOfShip);
                         placed = true;
                     }
                 }
             }
         }
     }
-    private void placeHorizontally(char[][]battlefield,int startX,int startY){
-        for(int i=0;i<4;i++){
-            battlefield[startX+i][startY]='4';
+    private void placeHorizontally(char[][]battlefield,int startX,int startY,int lengthOfShip){
+        for(int i=0;i<lengthOfShip;i++){
+            battlefield[startX+i][startY]='s';
         }
     }
-    private void placeVertically(char[][]battlefield,int startX,int startY){
-        for (int i = 0; i < 4; i++) {
-            battlefield[startX][startY + i] = '4';
+    private void placeVertically(char[][]battlefield,int startX,int startY,int lengthOfShip){
+        for (int i = 0; i < lengthOfShip; i++) {
+            battlefield[startX][startY + i] = 's';
         }
     }
     private boolean isPlacementValid(char[][] battlefield, int startX, int startY, int lengthOfShip, boolean horizontal) {
