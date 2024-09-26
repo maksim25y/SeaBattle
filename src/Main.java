@@ -12,16 +12,37 @@ public class Main {
         while (!haveWinner){
             boolean shotPlayer1 = true;
             while (shotPlayer1){
-                System.out.print("Игрок 1 введите координаты: ");
-                String powerOfPlayer1 = scanner.nextLine();
-                shotPlayer1 = player2.getAttack(powerOfPlayer1);
+                if(!player1.isLost()){
+                    System.out.print("Игрок 1 введите координаты: ");
+                    String powerOfPlayer1 = scanner.nextLine();
+                    shotPlayer1 = player2.getAttack(powerOfPlayer1);
+                    System.out.println("Доска игрока 2:");
+                    player2.printBoard();
+                    boolean isLost = player2.isLost();
+                    if(isLost){
+                        System.out.println("Игрок 1 победил :)");
+                        haveWinner=true;
+                        break;
+                    }
+                }
             }
             boolean shotPlayer2 = true;
             while (shotPlayer2){
-                System.out.print("Игрок 2 введите координаты: ");
-                String powerOfPlayer2 = scanner.nextLine();
-                shotPlayer2 = player1.getAttack(powerOfPlayer2);
+                if(!player2.isLost()){
+                    System.out.print("Игрок 2 введите координаты: ");
+                    String powerOfPlayer2 = scanner.nextLine();
+                    shotPlayer2 = player1.getAttack(powerOfPlayer2);
+                    System.out.println("Доска игрока 1:");
+                    player2.printBoard();
+                    boolean isLost = player1.isLost();
+                    if(isLost){
+                        System.out.println("Игрок 2 победил :)");
+                        haveWinner=true;
+                        break;
+                    }
+                }
             }
         }
+        System.out.println("Игра окончена!");
     }
 }
