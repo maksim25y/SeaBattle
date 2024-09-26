@@ -22,9 +22,14 @@ public class Player {
         shipsGenerator.arrangeShips(battlefield,4);
         printBoard();
     }
+    public boolean getAttack(String power){
+            int powerX = Integer.parseInt(power.charAt(1)+"");
+            int powerY = Util.mapOfNumbers.get(power.charAt(0));
+            return battlefield[powerX][powerY]=='s';
+    }
     private void printBoard(){
         System.out.print(" |");
-        for(Character letter: Main.listOfLetters){
+        for(Character letter: Util.listOfLetters){
             System.out.print(letter+"|");
         }
         System.out.println();
