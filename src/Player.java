@@ -59,7 +59,23 @@ public class Player {
                 }
             }
         }
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                if (battlefield[i][j] == 'k') {
+                    markAround(i, j);
+                }
+            }
+        }
         return true;
+    }
+    private void markAround(int x, int y) {
+        for (int i = x - 1; i <= x + 1; i++) {
+            for (int j = y - 1; j <= y + 1; j++) {
+                if (isValidCoordinate(i, j) && battlefield[i][j] == ' ') {
+                    battlefield[i][j] = 'x';
+                }
+            }
+        }
     }
     private boolean isValidCoordinate(int x, int y) {
         return x >= 0 && x < battlefield.length && y >= 0 && y < battlefield[0].length;

@@ -24,6 +24,8 @@ public class Main {
                         haveWinner=true;
                         break;
                     }
+                }else {
+                    break;
                 }
             }
             boolean shotPlayer2 = true;
@@ -33,13 +35,15 @@ public class Main {
                     String powerOfPlayer2 = scanner.nextLine();
                     shotPlayer2 = player1.getAttack(powerOfPlayer2);
                     System.out.println("Доска игрока 1:");
-                    player2.printBoard();
+                    player1.printBoard();
                     boolean isLost = player1.isLost();
                     if(isLost){
                         System.out.println("Игрок 2 победил :)");
                         haveWinner=true;
                         break;
                     }
+                }else {
+                    break;
                 }
             }
         }
