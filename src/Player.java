@@ -24,29 +24,36 @@ public class Player {
         printBoard();
     }
     public boolean getAttack(String power){
-            int powerX = Integer.parseInt(power.charAt(1)+"");
-            int powerY = Util.mapOfNumbers.get(power.charAt(0));
-            char el = battlefield[powerX][powerY];
-            switch (el){
-                case 's':
-                    System.out.println("Попадание!");
-                    battlefield[powerX][powerY]='k';
-                    if (isShipDestroyed(powerX, powerY)) {
-                        countOfShips--;
-                        System.out.println("Осталось кораблей: "+countOfShips);
-                        System.out.println("Корабль уничтожен!");
+        int powerX = Integer.parseInt(power.charAt(1)+"");
+        int powerY = Util.mapOfNumbers.get(power.charAt(0));
+        char el = battlefield[powerX][powerY];
+        switch (el){
+            case 's':
+                System.out.println("Попадание!");
+                battlefield[powerX][powerY]='k';
+                if (!findPath(battlefield,powerX, powerY)) {
+                    for (int i = 0; i < 10; i++) {
+                        for (int j = 0; j < 10; j++) {
+                            if (battlefield[i][j] == 'k') {
+                                markAround(i, j);
+                            }
+                        }
                     }
-                    break;
-                case ' ':
-                    System.out.println("Мимо!");
-                    battlefield[powerX][powerY]='x';
-                    break;
-                default:
-                    System.out.println("Вы уже стреляли в данную клетку!");
-                    return true;
-            }
-            System.out.println("Доска игрока 1:");
-            return el=='s';
+                    countOfShips--;
+                    System.out.println("Осталось кораблей: "+countOfShips);
+                    System.out.println("\033[31mКорабль уничтожен!\033[0m");
+                }
+                break;
+            case ' ':
+                System.out.println("\033[35mМимо!\033[0m");
+                battlefield[powerX][powerY]='x';
+                break;
+            default:
+                System.out.println("\033[34mВы уже стреляли в данную клетку!\033[0m");
+                return true;
+        }
+        System.out.println("Доска игрока 1:");
+        return el=='s';
     }
     public boolean isLost(){
         return countOfShips==0;
@@ -67,6 +74,38 @@ public class Player {
             }
         }
         return true;
+    }
+    public boolean findPath(char[][] matrix, int startX, int startY) {
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+
+        // Проверка, что начальные координаты в пределах матрицы
+        if (startX < 0 || startX >= rows || startY < 0 || startY >= cols) {
+            return false;
+        }
+
+        boolean[][] visited = new boolean[rows][cols];
+
+        return dfs(matrix, visited, startX, startY);
+    }
+
+    private boolean dfs(char[][] matrix, boolean[][] visited, int row, int col) {
+        if (row < 0 || row >= matrix.length || col < 0 || col >= matrix[0].length || matrix[row][col] == ' '||matrix[row][col]=='x') {
+            return false;
+        }
+        if (visited[row][col]) {
+            return false;
+        }
+        visited[row][col] = true;
+        if (matrix[row][col] == 's') {
+            return true;
+        }
+        for (int[] dir : new int[][]{{0, 1}, {0, -1}, {1, 0}, {-1, 0}}) {
+            if (dfs(matrix, visited, row + dir[0], col + dir[1])) {
+                return true;
+            }
+        }
+        return false;
     }
     private void markAround(int x, int y) {
         for (int i = x - 1; i <= x + 1; i++) {
@@ -89,9 +128,23 @@ public class Player {
         for(int i=0;i<10;i++){
             System.out.print(i+" ");
             for(int j=0;j<10;j++){
-                System.out.print(battlefield[i][j]+"|");
+                printElement(battlefield[i][j]);
             }
             System.out.println();
+        }
+    }
+    private void printElement(char element){
+        if(element=='s'){
+            System.out.print("\033[33ms\033[0m"+"|");
+        }
+        if(element==' '){
+            System.out.print(element+"|");
+        }
+        if(element=='x'){
+            System.out.print("\033[36mx\033[0m"+"|");
+        }
+        if(element=='k'){
+            System.out.print("\033[31mk\033[0m"+"|");
         }
     }
 }
