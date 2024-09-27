@@ -46,7 +46,11 @@ public class Player {
         }
     }
     public boolean getAttack(String power){
-        int powerX = Integer.parseInt(power.substring(1, 2));;
+        if(!isValidPower(power)){
+            System.out.println("\033[34mНекорректный формат ввода координат!\033[0m");
+            return false;
+        }
+        int powerX = Integer.parseInt(power.substring(1, 2));
         int powerY = Util.mapOfNumbers.get(power.charAt(0));
         char el = battlefield[powerX][powerY];
         switch (el){
@@ -65,6 +69,17 @@ public class Player {
                 System.out.println("\033[34mВы уже стреляли в данную клетку!\033[0m");
                 return true;
         }
+    }
+    private boolean isValidPower(String power){
+        try{
+            Integer.parseInt(power.substring(1, 2));
+            if(!Util.mapOfNumbers.containsKey(power.charAt(0))){
+                return false;
+            }
+        }catch (Exception e){
+            return false;
+        }
+        return true;
     }
     private void markShipAsDestroyed(){
         for (int i = 0; i < LENGTH; i++) {
