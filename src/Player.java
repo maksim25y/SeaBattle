@@ -29,7 +29,6 @@ public class Player {
         generateShipByCountAndSize(3,2);
         generateShipByCountAndSize(4,1);
         addValuesFromBattlefieldToBattlefieldForShow();
-        printBoard();
     }
     private void addValuesFromBattlefieldToBattlefieldForShow(){
         for(int i=0;i<LENGTH;i++){
