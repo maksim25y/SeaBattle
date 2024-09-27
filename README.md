@@ -8,4 +8,27 @@
 
 ![image](https://github.com/user-attachments/assets/923b52ca-65b7-4fc0-959c-7f472b6d2ec8)
 
+![image](https://github.com/user-attachments/assets/514d8299-3564-49cb-b332-48e0a1d6e31b)
+
+В случае корректного ввода координат будет выведено сообщение (попадание, мимо, уже стреляли в данную клетку):
+
+![image](https://github.com/user-attachments/assets/4f5d0a66-6019-4af2-a7be-88abb0b80b3e)
+
+В случае попадания клетка, в которую вы попали будет помечена как 'k' и вам будет дана возможность продолжить свой ход:
+
+![image](https://github.com/user-attachments/assets/9ecd1d4a-aec8-490b-9823-0160c97394c5)
+
+В случае промаха клетка, в которую вы стреляли будет помечена как 'x' и ход будет передан другому игроку:
+
+![image](https://github.com/user-attachments/assets/8676902e-9b10-46c8-95f8-0bb7a577a440)
+
+В случае уничтожения корабля будет выдведено сообщение, содержащее информацию об осбавшемся количестве кораблей и оповещение об уничтожении, ход будет продолжен:
+
+![image](https://github.com/user-attachments/assets/f90c9d48-71fd-42af-b866-da9c584c069c)
+
+
+
+
+
+
 </details>
