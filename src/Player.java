@@ -3,10 +3,12 @@ import java.util.Arrays;
 public class Player {
     private final int LENGTH = 10;
     private final char[][]battlefield;
+    private final char[][]battlefieldForShow;
     private int countOfShips = 10;
-    private String name;
+    private final String name;
     private final ShipsGenerator shipsGenerator = new ShipsGenerator();
     public Player(String name) {
+        this.battlefieldForShow=new char[LENGTH][LENGTH];
         battlefield=new char[LENGTH][LENGTH];
         this.name=name;
     }
@@ -19,11 +21,24 @@ public class Player {
         for (char[] chars : battlefield) {
             Arrays.fill(chars, ' ');
         }
+        for (char[] chars : battlefieldForShow) {
+            Arrays.fill(chars, ' ');
+        }
         generateShipByCountAndSize(1,4);
         generateShipByCountAndSize(2,3);
         generateShipByCountAndSize(3,2);
         generateShipByCountAndSize(4,1);
+        addValuesFromBattlefieldToBattlefieldForShow();
         printBoard();
+    }
+    private void addValuesFromBattlefieldToBattlefieldForShow(){
+        for(int i=0;i<LENGTH;i++){
+            for(int j=0;j<LENGTH;j++){
+                if(battlefield[i][j]!='s') {
+                    battlefieldForShow[i][j] = battlefield[i][j];
+                }
+            }
+        }
     }
     private void generateShipByCountAndSize(int size,int count){
         for(int i=0;i<count;i++){
@@ -105,6 +120,7 @@ public class Player {
         return x >= 0 && x < LENGTH  && y >= 0 && y < LENGTH;
     }
     public void printBoard(){
+        addValuesFromBattlefieldToBattlefieldForShow();
         System.out.print(" |");
         for(Character letter: Util.listOfLetters){
             System.out.print(letter+"|");
@@ -113,7 +129,7 @@ public class Player {
         for(int i=0;i<LENGTH;i++){
             System.out.print(i+" ");
             for(int j=0;j<LENGTH;j++){
-                printElement(battlefield[i][j]);
+                printElement(battlefieldForShow[i][j]);
             }
             System.out.println();
         }

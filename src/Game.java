@@ -5,11 +5,11 @@ public class Game {
         boolean shotPlayer2 = true;
         while (shotPlayer2){
             if(!player2.isLost()){
+                System.out.println("Доска игрока "+player1.getName());
+                player1.printBoard();
                 System.out.print(player2.getName()+" введите координаты: ");
                 String powerOfPlayer2 = scanner.nextLine();
                 shotPlayer2 = player1.getAttack(powerOfPlayer2);
-                System.out.println("Доска игрока "+player1.getName());
-                player1.printBoard();
                 boolean isLost = player1.isLost();
                 if(isLost){
                     System.out.println(player2.getName()+" победил :)");
