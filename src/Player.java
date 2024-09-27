@@ -11,61 +11,39 @@ public class Player {
         for (char[] chars : battlefield) {
             Arrays.fill(chars, ' ');
         }
-        for(int i=0;i<4;i++){
-            shipsGenerator.arrangeShips(battlefield,1);
-        }
-        for(int i=0;i<3;i++){
-            shipsGenerator.arrangeShips(battlefield,2);
-        }
-        for(int i=0;i<2;i++){
-            shipsGenerator.arrangeShips(battlefield,3);
-        }
-        shipsGenerator.arrangeShips(battlefield,4);
+        generateShipByCountAndSize(1,4);
+        generateShipByCountAndSize(2,3);
+        generateShipByCountAndSize(3,2);
+        generateShipByCountAndSize(4,1);
         printBoard();
     }
+    private void generateShipByCountAndSize(int size,int count){
+        for(int i=0;i<count;i++){
+            shipsGenerator.arrangeShips(battlefield,size);
+        }
+    }
     public boolean getAttack(String power){
-        int powerX = Integer.parseInt(power.charAt(1)+"");
+        int powerX = Integer.parseInt(power.substring(1, 2));;
         int powerY = Util.mapOfNumbers.get(power.charAt(0));
         char el = battlefield[powerX][powerY];
         switch (el){
             case 's':
-                System.out.println("Попадание!");
+                System.out.println("\033[31mПопадание!\033[0m");
                 battlefield[powerX][powerY]='k';
                 if (!findPath(battlefield,powerX, powerY)) {
-                    for (int i = 0; i < 10; i++) {
-                        for (int j = 0; j < 10; j++) {
-                            if (battlefield[i][j] == 'k') {
-                                markAround(i, j);
-                            }
-                        }
-                    }
-                    countOfShips--;
-                    System.out.println("Осталось кораблей: "+countOfShips);
-                    System.out.println("\033[31mКорабль уничтожен!\033[0m");
+                    markShipAsDestroyed();
                 }
-                break;
+                return true;
             case ' ':
                 System.out.println("\033[35mМимо!\033[0m");
                 battlefield[powerX][powerY]='x';
-                break;
+                return false;
             default:
                 System.out.println("\033[34mВы уже стреляли в данную клетку!\033[0m");
                 return true;
         }
-        System.out.println("Доска игрока 1:");
-        return el=='s';
     }
-    public boolean isLost(){
-        return countOfShips==0;
-    }
-    private boolean isShipDestroyed(int x, int y) {
-        for (int i = x - 1; i <= x + 1; i++) {
-            for (int j = y - 1; j <= y + 1; j++) {
-                if (isValidCoordinate(i, j) && battlefield[i][j] == 's') {
-                    return false;
-                }
-            }
-        }
+    private void markShipAsDestroyed(){
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 if (battlefield[i][j] == 'k') {
@@ -73,18 +51,20 @@ public class Player {
                 }
             }
         }
-        return true;
+        countOfShips--;
+        System.out.println("Осталось кораблей: "+countOfShips);
+        System.out.println("\033[31mКорабль уничтожен!\033[0m");
+    }
+    public boolean isLost(){
+        return countOfShips==0;
     }
     public boolean findPath(char[][] matrix, int startX, int startY) {
         int rows = matrix.length;
         int cols = matrix[0].length;
-
         if (startX < 0 || startX >= rows || startY < 0 || startY >= cols) {
             return false;
         }
-
         boolean[][] visited = new boolean[rows][cols];
-
         return dfs(matrix, visited, startX, startY);
     }
 
@@ -116,7 +96,7 @@ public class Player {
         }
     }
     private boolean isValidCoordinate(int x, int y) {
-        return x >= 0 && x < battlefield.length && y >= 0 && y < battlefield[0].length;
+        return x >= 0 && x < 10 && y >= 0 && y < 10;
     }
     public void printBoard(){
         System.out.print(" |");
