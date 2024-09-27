@@ -17,4 +17,9 @@ public class Util {
             'I',8,
             'J',9
     );
+   static Map<Character, Integer> COLOR_CODES = Map.of(
+            's', 33,//Жёлтый
+            'x', 36,//Синий
+            'k', 31  //Красный
+    );
 }

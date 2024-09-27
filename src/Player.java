@@ -79,7 +79,6 @@ public class Player {
         int rows = matrix.length;
         int cols = matrix[0].length;
 
-        // Проверка, что начальные координаты в пределах матрицы
         if (startX < 0 || startX >= rows || startY < 0 || startY >= cols) {
             return false;
         }
@@ -134,17 +133,10 @@ public class Player {
         }
     }
     private void printElement(char element){
-        if(element=='s'){
-            System.out.print("\033[33ms\033[0m"+"|");
-        }
-        if(element==' '){
+        if(element!=' '){
+            System.out.print("\033["+Util.COLOR_CODES.get(element)+"m"+element+"\033[0m"+"|");
+        }else{
             System.out.print(element+"|");
-        }
-        if(element=='x'){
-            System.out.print("\033[36mx\033[0m"+"|");
-        }
-        if(element=='k'){
-            System.out.print("\033[31mk\033[0m"+"|");
         }
     }
 }
