@@ -1,11 +1,12 @@
 import java.util.Arrays;
 
 public class Player {
+    private final int LENGTH = 10;
     private final char[][]battlefield;
     private int countOfShips = 10;
     private final ShipsGenerator shipsGenerator = new ShipsGenerator();
     public Player() {
-        battlefield=new char[10][10];
+        battlefield=new char[LENGTH][LENGTH];
     }
     public void generateBoard(){
         for (char[] chars : battlefield) {
@@ -30,7 +31,7 @@ public class Player {
             case 's':
                 System.out.println("\033[31mПопадание!\033[0m");
                 battlefield[powerX][powerY]='k';
-                if (!findPath(battlefield,powerX, powerY)) {
+                if (!findPath(powerX, powerY)) {
                     markShipAsDestroyed();
                 }
                 return true;
@@ -44,8 +45,8 @@ public class Player {
         }
     }
     private void markShipAsDestroyed(){
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
+        for (int i = 0; i < LENGTH; i++) {
+            for (int j = 0; j < LENGTH; j++) {
                 if (battlefield[i][j] == 'k') {
                     markAround(i, j);
                 }
@@ -58,29 +59,27 @@ public class Player {
     public boolean isLost(){
         return countOfShips==0;
     }
-    public boolean findPath(char[][] matrix, int startX, int startY) {
-        int rows = matrix.length;
-        int cols = matrix[0].length;
-        if (startX < 0 || startX >= rows || startY < 0 || startY >= cols) {
+    public boolean findPath(int startX, int startY) {
+        if (!isValidCoordinate(startX,startY)) {
             return false;
         }
-        boolean[][] visited = new boolean[rows][cols];
-        return dfs(matrix, visited, startX, startY);
+        boolean[][] visited = new boolean[LENGTH][LENGTH];
+        return dfs(visited, startX, startY);
     }
 
-    private boolean dfs(char[][] matrix, boolean[][] visited, int row, int col) {
-        if (row < 0 || row >= matrix.length || col < 0 || col >= matrix[0].length || matrix[row][col] == ' '||matrix[row][col]=='x') {
+    private boolean dfs(boolean[][] visited, int row, int col) {
+        if (row < 0 || row >= LENGTH || col < 0 || col >= LENGTH || battlefield[row][col] == ' '||battlefield[row][col]=='x') {
             return false;
         }
         if (visited[row][col]) {
             return false;
         }
         visited[row][col] = true;
-        if (matrix[row][col] == 's') {
+        if (battlefield[row][col] == 's') {
             return true;
         }
         for (int[] dir : new int[][]{{0, 1}, {0, -1}, {1, 0}, {-1, 0}}) {
-            if (dfs(matrix, visited, row + dir[0], col + dir[1])) {
+            if (dfs(visited, row + dir[0], col + dir[1])) {
                 return true;
             }
         }
@@ -96,7 +95,7 @@ public class Player {
         }
     }
     private boolean isValidCoordinate(int x, int y) {
-        return x >= 0 && x < 10 && y >= 0 && y < 10;
+        return x >= 0 && x < LENGTH  && y >= 0 && y < LENGTH;
     }
     public void printBoard(){
         System.out.print(" |");
@@ -104,9 +103,9 @@ public class Player {
             System.out.print(letter+"|");
         }
         System.out.println();
-        for(int i=0;i<10;i++){
+        for(int i=0;i<LENGTH;i++){
             System.out.print(i+" ");
-            for(int j=0;j<10;j++){
+            for(int j=0;j<LENGTH;j++){
                 printElement(battlefield[i][j]);
             }
             System.out.println();
