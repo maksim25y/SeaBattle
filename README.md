@@ -61,5 +61,9 @@
 
   ![image](https://github.com/user-attachments/assets/af3e1798-82db-48e2-b781-534b8f67b171)
   </details>
+  <details><summary>Util</summary>
+    Данный класс является утилитным и хранит 3 статических коллекции, которые используются классом Player для манипуляций с игровым полем.
+
+</details>
 </details>
 
