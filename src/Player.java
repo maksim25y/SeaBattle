@@ -4,10 +4,17 @@ public class Player {
     private final int LENGTH = 10;
     private final char[][]battlefield;
     private int countOfShips = 10;
+    private String name;
     private final ShipsGenerator shipsGenerator = new ShipsGenerator();
-    public Player() {
+    public Player(String name) {
         battlefield=new char[LENGTH][LENGTH];
+        this.name=name;
     }
+
+    public String getName() {
+        return name;
+    }
+
     public void generateBoard(){
         for (char[] chars : battlefield) {
             Arrays.fill(chars, ' ');
