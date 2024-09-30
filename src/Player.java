@@ -47,7 +47,7 @@ public class Player {
     public boolean getAttack(String power){
         if(!isValidPower(power)){
             System.out.println("\033[34mНекорректный формат ввода координат!\033[0m");
-            return false;
+            return true;
         }
         int powerX = Integer.parseInt(power.substring(1, 2));
         int powerY = Util.mapOfNumbers.get(power.charAt(0));
